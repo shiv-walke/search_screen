@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:search_screen/screens/search_screen.dart';
 
 import '../model/gts_type_model.dart';
 
@@ -41,13 +42,16 @@ class _SearchFilterState extends State<SearchFilter> {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
                     child: const Text("Cancel")),
               ),
              // const SizedBox(width: 50.0,),
