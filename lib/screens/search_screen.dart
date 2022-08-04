@@ -75,7 +75,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     builder: (context) {
                       return Dialog(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40)),
+                            borderRadius: BorderRadius.circular(40),
+                        ),
                         elevation: 16,
                         child:  SearchFilter(typeList),
                       );
