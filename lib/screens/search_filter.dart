@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:search_screen/screens/search_screen.dart';
 
 import '../model/gts_type_model.dart';
 
