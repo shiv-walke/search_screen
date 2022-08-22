@@ -124,12 +124,16 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0, right: 10.0),
                         child: TextField(
-                          decoration: const InputDecoration(
+                          decoration:  InputDecoration(
                             hintText: 'Search',
-                            suffixIcon: Icon(
-                              Icons.cancel,
-                              color: Colors.grey,
+                            suffixIcon: IconButton(
+                              icon:const Icon(
+                                Icons.cancel,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {  },
                             ),
+
 
                           ),
 
@@ -143,9 +147,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("cancel"),
+                 TextButton(
+                  onPressed: () {  },
+                  child: const Text("cancel",
+                  style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ]
           ),
