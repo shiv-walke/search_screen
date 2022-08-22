@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:search_screen/screens/search_filter.dart';
-
 import '../model/gts_model.dart';
 import '../model/gts_type_model.dart';
 
@@ -29,6 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   List<GtsTypeModel> typeList = [];
   List<String> typeListString = [];
+  List<String> typeFilterList = [];
 
   @override
   initState() {
@@ -54,11 +53,32 @@ class _SearchScreenState extends State<SearchScreen> {
 
   bool valueCheck = true;
 
+  bool isSearchEntryAllowed(GtsModel model){
+    if (model.text.toLowerCase().contains(searchText)){
+      if(model.type.contains(valueCheck)){
+
+      }
+    }
+
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
+   // debugPrint("hello");
+    debugPrint(typeList.toString());
+    debugPrint(typeList.toString());
+
+
     var filteredItems = _allEntries.where((element) {
       return element.text.toLowerCase().contains(searchText);
     }).toList();
+
+    var filteredTypeItems = _allEntries.where((element) {
+      return element.type.contains(typeList);
+    });
+
+   debugPrint("filteredTypeItems : $filteredTypeItems");
 
     return Scaffold(
       appBar: AppBar(
@@ -78,7 +98,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             borderRadius: BorderRadius.circular(40),
                         ),
                         elevation: 16,
-                        child:  SearchFilter(typeList),
+                        child:  SearchFilter(typeList, onSubmit: () {
+                          setState(() {});
+                        },),
                       );
                     });
               },
@@ -89,26 +111,43 @@ class _SearchScreenState extends State<SearchScreen> {
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(bottom: 20.0, left: 10.0, right: 10.0),
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                color: Colors.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-                child: TextField(
-                  decoration: const InputDecoration(hintText: 'Search'),
-                  onChanged: (value) {
-                    setState(() {
-                      searchText = value;
-                    });
-                  },
+          child: Row(
+            children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0, right: 10.0),
+                        child: TextField(
+                          decoration: const InputDecoration(
+                            hintText: 'Search',
+                            suffixIcon: Icon(
+                              Icons.cancel,
+                              color: Colors.grey,
+                            ),
+
+                          ),
+
+                          onChanged: (value) {
+                            setState(() {
+                              searchText = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("cancel"),
+                ),
+              ]
           ),
         ),
       ),
@@ -121,7 +160,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ? ListView.builder(
                       itemCount: filteredItems.length,
                       itemBuilder: (context, index) => Card(
-                        key: ValueKey(filteredItems[index].text),
+                        key: ValueKey(filteredItems[index].type),
                         color: Colors.white54,
                         elevation: 4,
                         margin: const EdgeInsets.symmetric(vertical: 10),

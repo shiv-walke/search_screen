@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../model/gts_type_model.dart';
 
 class SearchFilter extends StatefulWidget {
+  final Function onSubmit;
   final List<GtsTypeModel> typeList;
-  const SearchFilter(this.typeList, {Key? key}) : super(key: key);
+  const SearchFilter(this.typeList, {Key? key, required this.onSubmit}) : super(key: key);
 
   @override
   State<SearchFilter> createState() => _SearchFilterState();
@@ -12,7 +13,7 @@ class SearchFilter extends StatefulWidget {
 
 class _SearchFilterState extends State<SearchFilter> {
   bool contentCheck = true;
-
+  List selectedType = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +42,8 @@ class _SearchFilterState extends State<SearchFilter> {
             ),
           ),
           Row(
-
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -57,7 +57,15 @@ class _SearchFilterState extends State<SearchFilter> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      widget.onSubmit();
+                      Navigator.pop(context);
+                      // if(widget.typeList.selectedType()){
+                      //   print("You selects type");
+                      // }else{
+                      //   print("Types are not selected");
+                      // }
+                    },
                     child: const Text("Submit")),
               ),
             ],
